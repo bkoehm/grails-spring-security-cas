@@ -1,7 +1,7 @@
 buildscript {
     repositories {
-        maven { url "https://repo.grails.org/grails/core" }
         mavenCentral()
+        maven { url "https://repo.grails.org/grails/core" }
         gradlePluginPortal()
     }
     dependencies {
@@ -25,7 +25,7 @@ subprojects { project->
     }
 
     dependencies {
-        documentation "com.github.javaparser:javaparser-core:3.25.8"
+        documentation "com.github.javaparser:javaparser-core:3.26.2"
     }
 
     tasks.withType(Groovydoc).configureEach {

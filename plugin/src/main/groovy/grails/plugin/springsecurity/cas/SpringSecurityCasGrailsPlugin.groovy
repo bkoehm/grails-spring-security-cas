@@ -37,7 +37,7 @@ import grails.plugins.Plugin
 @CompileStatic
 class SpringSecurityCasGrailsPlugin extends Plugin {
 
-	String grailsVersion = '3.0.0 > *'
+	String grailsVersion = '7.0.0 > *'
 	String author = 'Burt Beckwith'
 	String authorEmail = 'burt@burtbeckwith.com'
 	String title = 'Jasig CAS support for the Spring Security plugin.'

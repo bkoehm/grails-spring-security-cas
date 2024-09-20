@@ -10,6 +10,13 @@ buildscript {
 version = projectVersion
 group = 'org.grails.plugins'
 
+configurations {
+    all {
+        exclude group: 'javax.servlet'
+        exclude group: 'javax.xml.bind'
+    }
+}
+
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'java-library'
@@ -17,8 +24,11 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: 'org.grails.grails-plugin'
 
-sourceCompatibility = 1.11
-targetCompatibility = 1.11
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 ext."signing.keyId" = project.hasProperty("signing.keyId") ? project.getProperty('signing.keyId') : System.getenv('SIGNING_KEY')
 ext."signing.secretKeyRingFile" = project.hasProperty("signing.secretKeyRingFile") ? project.getProperty('signing.secretKeyRingFile') : "${System.properties['user.home']}${File.separator}.gnupg${File.separator}secring.gpg"
@@ -62,8 +72,17 @@ configurations {
 	documentation.extendsFrom compileClasspath
 }
 
+configurations.configureEach {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        if ((details.requested.group == 'org.codehaus.groovy' || details.requested.group == 'org.apache.groovy') && details.requested.name != 'groovy-bom') {
+            details.useTarget(group: 'org.apache.groovy', name: details.requested.name, version: groovyVersion)
+            details.because "The dependency coordinates are changed in Apache Groovy 4, plus ensure version"
+        }
+    }
+}
+
 dependencies {
-	compileOnly "javax.servlet:javax.servlet-api:$javaxServletApiVersion"
+	compileOnly "jakarta.servlet:jakarta.servlet-api:$jakartaServletApiVersion"
 	compileOnly "org.springframework.boot:spring-boot-starter-logging"
 	compileOnly "org.grails:grails-web-boot"
 
@@ -78,7 +97,7 @@ dependencies {
 		 'spring-security-web', 'spring-web'].each { exclude module: it }
 	}
 
-	documentation "com.github.javaparser:javaparser-core:3.25.8"
+	documentation "com.github.javaparser:javaparser-core:3.26.2"
 }
 
 tasks.withType(Groovydoc).configureEach {

@@ -26,7 +26,6 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: check -Dgeb.env=chromeHeadless
-        env:
       - name: Run Build
         if: github.event_name == 'push'
         id: build

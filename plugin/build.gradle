@@ -80,7 +80,7 @@ dependencies {
 	profile "org.grails.profiles:web-plugin"
 	api "org.grails.plugins:spring-security-core:$springSecurityCoreVersion"
 
-	api "org.jasig.cas.client:cas-client-core:$casClientCoreVersion", {
+	api "org.apereo.cas.client:cas-client-core:$casClientCoreVersion", {
 		exclude module: 'slf4j-api'
 	}
 	api "org.springframework.security:spring-security-cas:$springSecurityVersion", {

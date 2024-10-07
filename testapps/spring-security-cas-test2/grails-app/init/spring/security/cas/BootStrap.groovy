@@ -9,16 +9,28 @@ import groovy.transform.CompileStatic
 class BootStrap {
 
     def init = { servletContext ->
-        Role roleAdmin = new Role('ROLE_ADMIN').save()
-        Role roleUser = new Role('ROLE_USER').save()
+        Role roleAdmin
+        Role roleUser
+        User user
+        User admin
 
-        User user = new User('user', 'user').save()
-        User admin = new User('admin', 'admin').save()
+        Role.withTransaction {
+            roleAdmin = new Role('ROLE_ADMIN').save()
+            roleUser = new Role('ROLE_USER').save()
+        }
 
-        UserRole.create user, roleUser
-        UserRole.create admin, roleUser
-        UserRole.create admin, roleAdmin, true
+        User.withTransaction {
+            user = new User('user', 'user').save()
+            admin = new User('admin', 'admin').save()
+        }
+
+        UserRole.withTransaction {
+            UserRole.create user, roleUser
+            UserRole.create admin, roleUser
+            UserRole.create admin, roleAdmin, true
+        }
     }
+
     def destroy = {
     }
 }

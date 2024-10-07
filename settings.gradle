@@ -29,9 +29,6 @@ include 'plugin'
 include 'testapp-spring-security-cas-test1'
 
 project(':testapp-spring-security-cas-test1').projectDir = new File(settingsDir, 'testapps/spring-security-cas-test1')
-include 'testapp-spring-security-cas-test2'
-
-project(':testapp-spring-security-cas-test2').projectDir = new File(settingsDir, 'testapps/spring-security-cas-test2')
 
 rootProject.name = 'spring-security-cas'
 

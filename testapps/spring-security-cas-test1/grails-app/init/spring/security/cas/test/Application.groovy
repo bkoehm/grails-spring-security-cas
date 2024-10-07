@@ -1,4 +1,4 @@
-package spring.security.cas
+package spring.security.cas.test
 
 import groovy.transform.CompileStatic
 import org.springframework.context.annotation.PropertySource

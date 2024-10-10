@@ -10,13 +10,6 @@ buildscript {
 version = projectVersion
 group = 'org.grails.plugins'
 
-configurations {
-    all {
-        exclude group: 'javax.servlet'
-        exclude group: 'javax.xml.bind'
-    }
-}
-
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'java-library'
